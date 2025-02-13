@@ -36,6 +36,12 @@ public class Main {
                 case 0:
                     System.out.println("=== WELCOME TO GROUP 2 ===");
                     System.out.println("Member:");
+                    System.out.println("1. Phan Tuan Thanh (L)");
+                    System.out.println("2. Pham Nguyen Huy Tung");
+                    System.out.println("3. Le Quang Nhat");
+                    System.out.println("4. Do Nguyen Hao");
+                    System.out.println("5. Doan Minh Duy");
+                    System.out.println("6. Nguyen Tan Trung");
                     break;
                 case 1:
                     break;
