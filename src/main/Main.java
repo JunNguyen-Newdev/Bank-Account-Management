@@ -18,6 +18,7 @@ public class Main {
 
         do {
             System.out.println("==== BANK ACCOUNT MANAGEMENT SYSTEM ====");
+            System.out.println("0. Print Info");
             System.out.println("1. Open Account");
             System.out.println("2. Deposit");
             System.out.println("3. Withdraw");
@@ -32,6 +33,10 @@ public class Main {
             sc.nextLine(); //Bo ki tu \n
 
             switch (choice) {
+                case 0:
+                    System.out.println("=== WELCOME TO GROUP 2 ===");
+                    System.out.println("Member:");
+                    break;
                 case 1:
                     break;
                 case 2:
@@ -49,10 +54,11 @@ public class Main {
                 case 8:
                     break;
                 case 9:
-                    System.out.println("Exiting...");
+                    System.out.println("THANKS FOR USING OUR SERVICE!");
+                    System.out.println("SEE YOU AGAIN!");
                     break;
                 default:
-                    System.out.println("Invalid choice. Try again.");
+                    System.out.println("Invalid choice!");
             }
         } while (choice != 9);
 
