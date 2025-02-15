@@ -33,6 +33,10 @@ public class BankAccount {
     public double getBalance() {
         return balance;
     }
+    
+    public void setBalance(double newBalance) {
+        this.balance = newBalance;
+    }
 
     // Method gui tien
     public void deposit(double amount) {
@@ -53,6 +57,6 @@ public class BankAccount {
 
     @Override
     public String toString() {
-        return String.format("%s |%s |%s.3f", holderName, accountNumber, balance);
+        return String.format("%s |%s |%.3f", holderName, accountNumber, balance);
     }
 }

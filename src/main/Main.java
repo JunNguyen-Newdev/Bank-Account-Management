@@ -175,7 +175,7 @@ public class Main {
                                 sc.nextLine();
                                 // Nếu số tiền lớn hơn 0 và nhỏ hơn hoặc bằng số dư hiện có thì cho rút tiền
                                 if (transferAmount > 0 && transferAmount <= senderCustomer.getAccount().getBalance()) {
-                                    
+                                    service.transfer(transferAmount, senderCustomer, receiverCustomer);
                                     break;
                                 } else {
                                     // Nếu số tiền lớn hơn số dư hoặc bé hơn không thì không có rút và bắt nhập lại
@@ -183,10 +183,8 @@ public class Main {
                                 }
                             }
                         }
-
+                    }
                         break;
-                    
-            
             case 5: // Check balance
                     System.out.println("==== BANK ACCOUNT MANAGEMENT SYSTEM [CHECK BALANCE] ====");
                     // Nhập số tài khoản người dùng muốn kiểm tra
@@ -267,4 +265,5 @@ public class Main {
         }
 
 
+    
     }

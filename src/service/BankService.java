@@ -41,7 +41,7 @@ public class BankService {
                 "Account number",
                 "Balance");
         for (Customer customer : listOfCustomers) {
-            System.out.format("%-5s |%-25s |%-13s |%-12s |%-14s |%-10s\n",
+            System.out.format("%-5s |%-20s |%-13s |%-12s |%-14s |%-10s\n",
                     ++order,
                     customer.getName(),
                     customer.getDob(),
@@ -56,5 +56,11 @@ public class BankService {
         Customer delCustomer = findCustomerbyAccountNumber(accountNumber);
         listOfCustomers.remove(delCustomer);
         System.out.println("ACCOUNT DELETED SUCCESSFULLY!");
+    }
+    
+    public void transfer(double amount, Customer senderCustomer, Customer receiverCustomer) {
+        senderCustomer.getAccount().setBalance(senderCustomer.getAccount().getBalance() - amount);
+        receiverCustomer.getAccount().setBalance(receiverCustomer.getAccount().getBalance() + amount);
+        System.out.println("TRANSFERED SUCCESSFULLY!");
     }
 }
