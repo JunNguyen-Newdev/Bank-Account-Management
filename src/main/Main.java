@@ -36,7 +36,7 @@ public class Main {
 
             switch (choice) {
                 case 0: //Print info
-                    System.out.println("=== WELCOME TO GROUP 2 ===");               
+                    System.out.println("=== WELCOME TO GROUP 2 ===");
                     System.out.println("Member:");
                     System.out.println("1. Phan Tuan Thanh (L)");
                     System.out.println("2. Pham Nguyen Huy Tung");
@@ -87,13 +87,107 @@ public class Main {
                     // Tạo tài khoản thành công
                     service.openAccount(customerName, phoneNumber, dob, accountNumber, initialBalance);
                     break;
-                case 2:
+                case 2: //Deposit
+                    System.out.println("==== BANK ACCOUNT MANAGEMENT SYSTEM [DEPOSIT] ====");
+                    // Nhập số tài khoản
+                    System.out.print("Enter the account number: ");
+                    String depositAccountNumber = sc.nextLine();
+                    // Kiểm tra nếu số tài khoản không tồn tại thì thông báo
+                    if (service.findCustomerbyAccountNumber(depositAccountNumber) == null) {
+                        System.out.println("ACCOUNT DOES NOT EXIST!");
+                    } else {
+                        // Nếu số tài khoản tồn tại thì nhập số tiền muốn gửi
+                        while (true) {
+                            System.out.print("Enter the amount: ");
+                            double amount = sc.nextDouble();
+                            sc.nextLine();
+                            //Nếu số tiền bé hơn hoặc bằng 0 thì thông báo không hợp lệ và bắt nhập lại
+                            if (amount <= 0) {
+                                System.out.println("THE AMOUNT MUST BE GREATER THAN 0!");
+                            } else {
+                                //Nếu số tiền hợp lệ thì gọi method gửi tiền
+                                Customer depositCustomer = service.findCustomerbyAccountNumber(depositAccountNumber);
+                                depositCustomer.getAccount().deposit(amount);
+                                break;
+                            }
+                        }
+                    }
                     break;
-                case 3:
+                case 3: //Withdraw
+                    System.out.println("==== BANK ACCOUNT MANAGEMENT SYSTEM [WITHDRAW] ====");
+                    // Nhập số tài khoản
+                    System.out.print("Enter the account number: ");
+                    String withdrawAccountNumber = sc.nextLine();
+                    // Kiểm tra nếu số tài khoản không tồn tại thì thông báo
+                    if (service.findCustomerbyAccountNumber(withdrawAccountNumber) == null) {
+                        System.out.println("ACCOUNT DOES NOT EXIST!");
+                    } else {
+                        // Nếu số tài khoản tồn tại thì nhập số tiền muốn rút
+                        while (true) {
+                            System.out.print("Enter the amount: ");
+                            double amount = sc.nextDouble();
+                            sc.nextLine();
+                            Customer withdrawCustomer = service.findCustomerbyAccountNumber(withdrawAccountNumber);
+                            // Nếu số tiền lớn hơn 0 và nhỏ hơn hoặc bằng số dư hiện có thì cho rút tiền
+                            if (amount > 0 && amount <= withdrawCustomer.getAccount().getBalance()) {
+                                withdrawCustomer.getAccount().withdraw(amount);
+                                break;
+                            } else {
+                                // Nếu số tiền lớn hơn số dư hoặc bé hơn không thì không có rút và bắt nhập lại
+                                System.out.println("INSUFFICIENT BALANCE OR INVALID AMOUNT!");
+                            }
+                        }
+                    }
                     break;
-                case 4:
-                    break;
-                case 5: // Check balance
+                case 4: //Transfer
+                    String senderAccountNumber;
+                    String receiverAccountNumber;
+
+                    System.out.println("==== BANK ACCOUNT MANAGEMENT SYSTEM [TRANSFER] ====");
+                    // Nhập số tài khoản người gửi
+                    System.out.print("Enter the sender's account number: ");
+                    senderAccountNumber = sc.nextLine();
+
+                    // Nếu tài khoản người gửi không tồn tại thì in ra thông báo
+                    if (service.findCustomerbyAccountNumber(senderAccountNumber) == null) {
+                        System.out.println("ACCOUNT DOES NOT EXIST!");
+                    } else {
+                        // Tài khoản người gửi tồn tại
+                        Customer senderCustomer = service.findCustomerbyAccountNumber(senderAccountNumber);
+                        System.out.println(senderCustomer.getAccount().toString()); // In thông tin tài khoản người gửi
+
+                        // Nhập số tài khoản người nhận
+                        System.out.print("Enter the receiver's account number: ");
+                        receiverAccountNumber = sc.nextLine();
+
+                        // Nếu tài khoản người nhận không tồn tại thì in ra thông báo
+                        if (service.findCustomerbyAccountNumber(receiverAccountNumber) == null) {
+                            System.out.println("ACCOUNT DOES NOT EXIST!");
+                        } else {
+                            // Tài khoản người nhận tồn tại
+                            Customer receiverCustomer = service.findCustomerbyAccountNumber(receiverAccountNumber);
+                            System.out.println("Receiver: " + receiverCustomer.getName());  // In tên người nhận
+
+                            // Nhập số tiền muốn chuyển
+                            while (true) {
+                                System.out.print("Enter the amount: ");
+                                double transferAmount = sc.nextDouble();
+                                sc.nextLine();
+                                // Nếu số tiền lớn hơn 0 và nhỏ hơn hoặc bằng số dư hiện có thì cho rút tiền
+                                if (transferAmount > 0 && transferAmount <= senderCustomer.getAccount().getBalance()) {
+                                    
+                                    break;
+                                } else {
+                                    // Nếu số tiền lớn hơn số dư hoặc bé hơn không thì không có rút và bắt nhập lại
+                                    System.out.println("INSUFFICIENT BALANCE OR INVALID AMOUNT!");
+                                }
+                            }
+                        }
+
+                        break;
+                    
+            
+            case 5: // Check balance
                     System.out.println("==== BANK ACCOUNT MANAGEMENT SYSTEM [CHECK BALANCE] ====");
                     // Nhập số tài khoản người dùng muốn kiểm tra
                     System.out.print("Enter the account number: ");
@@ -168,8 +262,9 @@ public class Main {
                     System.out.println("Invalid choice!");
             }
 
-        } while (choice!= 9);
-        sc.close();
-    }
+        } while (choice != 9);
+            sc.close();
+        }
 
-}
+
+    }

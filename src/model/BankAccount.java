@@ -36,13 +36,10 @@ public class BankAccount {
 
     // Method gui tien
     public void deposit(double amount) {
-        if (amount > 0) {
-            this.balance += amount;
-            System.out.println("Deposited: " + amount);
-            System.out.println("Balance: " + this.balance);
-        } else {
-            System.out.println("Invalid deposit amount!");
-        }
+        this.balance += amount;
+        System.out.println("Deposited: " + amount);
+        System.out.println("Balance: " + this.balance);
+
     }
 
     // Method rut tien
@@ -51,8 +48,6 @@ public class BankAccount {
             this.balance -= amount;
             System.out.println("Withdrawn: " + amount);
             System.out.println("Balance: " + this.balance);
-        } else {
-            System.out.println("Insufficient balance or invalid amount!");
         }
     }
 
