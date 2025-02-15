@@ -1,6 +1,8 @@
 package main;
 
 import java.util.Scanner;
+import service.BankService;
+import model.*;
 
 /**
  *
@@ -12,8 +14,8 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-
         Scanner sc = new Scanner(System.in);
+        BankService service = new BankService();
         int choice;
 
         do {
@@ -44,6 +46,55 @@ public class Main {
                     System.out.println("6. Nguyen Tan Trung");
                     break;
                 case 1:
+                    System.out.println("==== BANK ACCOUNT MANAGEMENT SYSTEM [OPEN ACCOUNT]====");
+                    System.out.print("Enter your name: ");
+                    String customerName = sc.nextLine();
+
+                    // Nếu hệ thống chưa có tên khách hàng thì bắt khách hàng phải đăng ký
+                    if (service.findCustomerByName(customerName) == null) {
+                        System.out.println("NOT FOUND. YOU NEED TO REGISTER!");
+                        System.out.print("Enter your name again: ");
+                        customerName = sc.nextLine();
+                        System.out.print("Enter your phone number: ");
+                        String phoneNumber = sc.nextLine();
+                        System.out.print("Enter your date of birth (DD/MM/YYYY): ");
+                        String dob = sc.nextLine();
+                        service.addCustomer(customerName, phoneNumber, dob);
+                    } else {
+                        // Khách đã đăng ký (hệ thống đã có tên khách hàng)
+                        // Yêu cầu khách hàng nhập thông tin để tìm kiếm
+                        System.out.print("Enter your phone number: ");
+                        String phoneNumber = sc.nextLine();
+                        System.out.print("Enter your date of birth (DD/MM/YYYY): ");
+                        String dob = sc.nextLine();
+                        Customer existedCustomer = service.findCustomer(customerName, phoneNumber, dob);
+
+                        // Yêu cầu khách nhập số tài khoản muốn tạo
+                        String accountNumber;
+                        double initialBalance;
+                        
+                        // Nếu số tài khoản đã tồn tại thì nhập lại
+                        do {
+                            System.out.print("Enter your account number: ");
+                            accountNumber = sc.nextLine();
+                            if (existedCustomer.findAccountByAccountNumber(accountNumber) != null) {
+                                System.out.println("THIS ACCOUNT NUMBER IS EXISTED. TRY AGAIN!");
+                            }
+                        } while (existedCustomer.findAccountByAccountNumber(accountNumber) != null);
+                        
+                        // Nếu số tiền < 0 thì nhập lại
+                        do {
+                            System.out.print("Enter your initial balance (>= 0): ");
+                            initialBalance = sc.nextDouble();
+                            sc.nextLine();
+                            if (initialBalance < 0) {
+                                System.out.println("THE BALANCE MUST BE GREATER THAN OR EQUAL TO 0!");
+                            }
+                        } while (initialBalance < 0);
+                        
+                        // Tài khoản chưa tồn tại và balance lớn hơn hoặc bằng 0 thì tạo tài khoản thành công
+                        service.openAccount(customerName, phoneNumber, dob, accountNumber, initialBalance);
+                    }
                     break;
                 case 2:
                     break;
@@ -67,7 +118,7 @@ public class Main {
                     System.out.println("Invalid choice!");
             }
         } while (choice != 9);
-
+        sc.close();
     }
 
 }
