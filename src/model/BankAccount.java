@@ -55,4 +55,9 @@ public class BankAccount {
             System.out.println("Insufficient balance or invalid amount!");
         }
     }
+
+    @Override
+    public String toString() {
+        return String.format("%s |%s |%s.3f", holderName, accountNumber, balance);
+    }
 }

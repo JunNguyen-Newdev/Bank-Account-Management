@@ -23,9 +23,9 @@ public class Customer {
         this.name = name;
         this.phone = phone;
         this.dob = dob;
-        this.account = new BankAccount(accountNumber, name, initialBalance);  
+        this.account = new BankAccount(accountNumber, name, initialBalance);
     }
-    
+
     public String getName() {
         return name;
     }
@@ -34,16 +34,21 @@ public class Customer {
         return phone;
     }
 
+    public void setPhone(String newPhone) {
+        this.phone = newPhone;
+    }
+
     public String getDob() {
         return dob;
     }
-    public BankAccount getAccout() {
+
+    public BankAccount getAccount() {
         return account;
     }
 
     @Override
     public String toString() {
-        return "Customer: " + name + "| Phone: " + phone + "| Date of Birth: " + dob;
+        return String.format("%s |%s |%s |%s |%.3f", name, dob, phone, account.getAccountNumber(), account.getBalance());
     }
 
 }
