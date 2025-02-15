@@ -26,7 +26,7 @@ public class Main {
             System.out.println("3. Withdraw");
             System.out.println("4. Transfer");
             System.out.println("5. Check Balance");
-            System.out.println("6. List Accounts");
+            System.out.println("6. List Customers");
             System.out.println("7. Update Account");
             System.out.println("8. Delete Account");
             System.out.println("9. Exit");
@@ -49,19 +49,19 @@ public class Main {
                     System.out.println("==== BANK ACCOUNT MANAGEMENT SYSTEM [OPEN ACCOUNT]====");
 
                     // Nhập tên, số điện thoại, ngày sinh
-                    System.out.print("Enter your name: ");
+                    System.out.print("Enter your name: "); //Max 30 kí tự
                     String customerName = sc.nextLine();
-                    System.out.print("Enter your phone number: ");
-                    String phoneNumber = sc.nextLine();
-                    System.out.print("Enter your date of birth (DD/MM/YYYY): ");
+                    System.out.print("Enter your date of birth (DD/MM/YYYY): "); //Max 10 kí tự
                     String dob = sc.nextLine();
-
+                    System.out.print("Enter your phone number: "); //Max 10 kí tự
+                    String phoneNumber = sc.nextLine();
+                    
                     String accountNumber;
                     double initialBalance;
 
                     // Yêu cầu khách hàng nhập số tài khoản
                     while (true) {
-                        System.out.print("Enter your account number: ");
+                        System.out.print("Enter your account number (10 digits): "); //Max 10 kí tự
                         accountNumber = sc.nextLine();
                         // Nếu số tài khoản đã tồn tại thì nhập lại
                         if (service.findCustomerbyAccountNumber(accountNumber) != null) {
@@ -74,7 +74,7 @@ public class Main {
 
                     // Yêu cầu khách hàng nhập số tiền
                     while (true) {
-                        System.out.print("Enter your initial balance (>= 0): ");
+                        System.out.print("Enter your initial balance (>= 0): ");    //Max 10 kí tự
                         initialBalance = sc.nextDouble();
                         sc.nextLine();
                         // Nếu số tiền là số âm thì nhập lại
@@ -96,7 +96,8 @@ public class Main {
                     break;
                 case 5:
                     break;
-                case 6:
+                case 6: //List customers
+                    service.listCustomers();
                     break;
                 case 7:
                     break;

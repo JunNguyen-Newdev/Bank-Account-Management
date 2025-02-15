@@ -55,10 +55,4 @@ public class BankAccount {
             System.out.println("Insufficient balance or invalid amount!");
         }
     }
-
-    @Override
-    public String toString() {
-        return "Account No: " + accountNumber + "| Holder: " + holderName + "| Balance: " + balance;
-    }
-
 }

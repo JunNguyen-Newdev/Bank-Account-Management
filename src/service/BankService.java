@@ -29,4 +29,27 @@ public class BankService {
         listOfCustomers.add(newCustomer);
         System.out.println("ACCOUNT CREATED SUCCESSFULLY!");
     }
+    
+    // In danh sách khách hàng
+    public void listCustomers() {
+        int order = 0;
+        System.out.format("%-5s |%-25s |%-13s |%-12s |%-14s |%-10s\n", 
+                "Order", 
+                "Name", 
+                "Date of birth", 
+                "Phone number",
+                "Account number",
+                "Balance");
+        for (Customer customer : listOfCustomers) {
+            System.out.format("%-5s |%-25s |%-13s |%-12s |%-14s |%-10s\n", 
+                ++order, 
+                customer.getName(), 
+                customer.getDob(), 
+                customer.getPhone(),
+                customer.getAccout().getAccountNumber(),
+                customer.getAccout().getBalance());
+        }
+    }
+    
+    
 }
