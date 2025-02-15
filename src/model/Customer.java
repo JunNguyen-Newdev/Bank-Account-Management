@@ -9,36 +9,23 @@ import java.util.List;
  */
 public class Customer {
 
+    private String id;  //  Id khach hang
     private String name; // Ten khach hang
     private String phone; // So dien thoai
     private String dob; // Ngay sinh
-    // Khoi tao kieu List giup code linh hoat (co nhieu cach trien khai: ArrayList, LinkList ...), de dang thay doi
-    private List<BankAccount> accounts; // Danh sach tai khoan cua khach hang
+    private BankAccount account; // Tai khoan cua khach hang
 
     // Phuong thuc khoi tao (constructor)
     public Customer() {
     }
 
-    public Customer(String name, String phone, String dob) {
+    public Customer(String name, String phone, String dob, String accountNumber, double initialBalance) {
         this.name = name;
         this.phone = phone;
         this.dob = dob;
-        this.accounts = new ArrayList<>();  // ArrayList: 1 trong nhieu cach trien khai cua List (ngoai ra con co LinkList ...)
+        this.account = new BankAccount(accountNumber, name, initialBalance);  
     }
-
-    public void addAccount(BankAccount account) {
-        this.accounts.add(account);
-    }
-
-    public BankAccount findAccountByAccountNumber(String fAccountNumber) {
-        for (BankAccount acc : accounts) {
-            if (acc.getAccountNumber().equals(fAccountNumber)) {
-                return acc;
-            }
-        }
-        return null;    // Not found
-    }
-
+    
     public String getName() {
         return name;
     }
@@ -50,8 +37,8 @@ public class Customer {
     public String getDob() {
         return dob;
     }
-    public List<BankAccount> getAccounts() {
-        return accounts;
+    public BankAccount getAccout() {
+        return account;
     }
 
     @Override

@@ -8,36 +8,25 @@ import java.util.*;
  * @author Nguyen Tan Trung - CE200064
  */
 public class BankService {
-
-    private List<Customer> customers = new ArrayList<>();
-
-    public void addCustomer(String name, String phone, String dob) {
-        customers.add(new Customer(name, phone, dob));
-        System.out.println("Customer added: " + name);
-    }
-
-    public Customer findCustomerByName(String name) {
-        for (Customer customer : customers) {
-            if (customer.getName().equalsIgnoreCase(name)) {
+    
+    // Khoi tao kieu List giup code linh hoat (co nhieu cach trien khai: ArrayList, LinkList ...), de dang thay doi
+    // ArrayList: 1 trong nhieu cach trien khai cua List (ngoai ra con co LinkList ...)
+    private List<Customer> listOfCustomers = new ArrayList<>();
+    
+    // Tìm khách hàng bằng số tài khoản
+    public Customer findCustomerbyAccountNumber(String accountNumber) {
+        for (Customer customer : listOfCustomers) {
+            if (customer.getAccout().getAccountNumber().equalsIgnoreCase(accountNumber)) {
                 return customer;
             }
         }
-        return null; // Not found
+        return null; // Khách hàng không tồn tại
     }
 
-    public Customer findCustomer(String name, String phone, String dob) {
-        for (Customer customer : customers) {
-            if (customer.getName().equalsIgnoreCase(name) && customer.getPhone().equalsIgnoreCase(phone) && customer.getDob().equalsIgnoreCase(dob)) {
-                return customer;
-            }
-        }
-        return null;
-    }
-
-    public void openAccount(String customerName,String phone, String dob, String accountNumber, double initialBalance) {
-        Customer customer = findCustomer(customerName, phone, dob);
-        BankAccount newAccount = new BankAccount(accountNumber, customerName, initialBalance);
-        customer.addAccount(newAccount);
-        System.out.println("Account created: " + accountNumber);
+    // Tạo tài khoản
+    public void openAccount(String name, String phone, String dob, String accountNumber, double initialBalance) {
+        Customer newCustomer = new Customer(name, phone, dob, accountNumber, initialBalance);
+        listOfCustomers.add(newCustomer);
+        System.out.println("ACCOUNT CREATED SUCCESSFULLY!");
     }
 }
