@@ -1,8 +1,7 @@
 package main;
 
-import java.io.FileNotFoundException;
 import java.util.Scanner;
-import service.BankService;
+import service.*;
 import model.*;
 
 /**
@@ -13,15 +12,14 @@ public class Main {
 
     /**
      * @param args the command line arguments
-     * @throws java.io.FileNotFoundException
      */
-    public static void main(String[] args) throws FileNotFoundException {
-
+    public static void main(String[] args) {
+        
         Scanner sc = new Scanner(System.in);
-        BankService service = new BankService();
         int choice;
 
         do {
+            BankService service = new BankService();
             System.out.println("==== BANK ACCOUNT MANAGEMENT SYSTEM ====");
             System.out.println("0. Print Info");
             System.out.println("1. Open Account");
@@ -86,6 +84,7 @@ public class Main {
                             // Nhập số tiền hợp lệ thì tạo tài khoản và break
                             service.openAccount(customerName, phoneNumber, dob, accountNumber, initialBalance);
                             System.out.println(service.findCustomerbyAccountNumber(accountNumber).toString());
+                            System.out.println("ACCOUNT CREATED SUCCESSFULLY!");
                             break;
                         }
                     }
@@ -231,6 +230,7 @@ public class Main {
                         String newPhoneNumber = sc.nextLine();
 
                         updateCustomer.setPhone(newPhoneNumber);
+                        
                         System.out.println("UPDATED SUCCESSFULLY!");
                     }
                     break;
@@ -246,12 +246,13 @@ public class Main {
                     } else {
                         // Tài khoản tồn tại thì in ra thông tin tài khoản
                         Customer delCustomer = service.findCustomerbyAccountNumber(delAccountNumber);
-                        delCustomer.toString();
+                        System.out.println(delCustomer.toString());
 
                         // Xác nhận việc xóa tài khoản của người dùng
                         System.out.print("Do you want to delete this account(Y/N)? ");
                         String delChoice = sc.nextLine();
                         if (delChoice.equalsIgnoreCase("Y")) {
+                            service.deleteCustomer(delAccountNumber);
                             System.out.println("DELETED SUCCESSFULLY!");
                         } else {
                             System.out.println("DELETION FAILED!");

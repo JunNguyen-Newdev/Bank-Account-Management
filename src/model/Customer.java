@@ -1,8 +1,5 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  *
  * @author Nguyen Tan Trung - CE200064
