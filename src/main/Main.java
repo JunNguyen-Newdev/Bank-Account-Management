@@ -1,5 +1,6 @@
 package main;
 
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 import service.BankService;
 import model.*;
@@ -12,8 +13,10 @@ public class Main {
 
     /**
      * @param args the command line arguments
+     * @throws java.io.FileNotFoundException
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
+
         Scanner sc = new Scanner(System.in);
         BankService service = new BankService();
         int choice;
@@ -62,9 +65,9 @@ public class Main {
                     while (true) {
                         System.out.print("Enter your account number (10 digits): "); //Max 10 kí tự
                         accountNumber = sc.nextLine();
-                        // Nếu số tài khoản đã tồn tại thì nhập lại
-                        if (service.findCustomerbyAccountNumber(accountNumber) != null) {
-                            System.out.println("THIS ACCOUNT NUMBER ALREADY EXISTED. TRY AGAIN!");
+                        // Nếu số tài khoản đã tồn tại, hoặc không đủ độ dài thì nhập lại
+                        if (service.findCustomerbyAccountNumber(accountNumber) != null || accountNumber.length() != 10) {
+                            System.out.println("INVALID ACCOUNT NUMBER. TRY AGAIN!");
                         } else {
                             // Số tài khoản hợp lệ thì break
                             break;
@@ -80,12 +83,12 @@ public class Main {
                         if (initialBalance < 0) {
                             System.out.println("THE BALANCE MUST BE GREATER OR EQUAL TO 0!");
                         } else {
-                            // Nhập số tiền hợp lệ thì break
+                            // Nhập số tiền hợp lệ thì tạo tài khoản và break
+                            service.openAccount(customerName, phoneNumber, dob, accountNumber, initialBalance);
+                            System.out.println(service.findCustomerbyAccountNumber(accountNumber).toString());
                             break;
                         }
                     }
-                    // Tạo tài khoản thành công
-                    service.openAccount(customerName, phoneNumber, dob, accountNumber, initialBalance);
                     break;
                 case 2: //Deposit
                     System.out.println("==== BANK ACCOUNT MANAGEMENT SYSTEM [DEPOSIT] ====");
@@ -96,17 +99,19 @@ public class Main {
                     if (service.findCustomerbyAccountNumber(depositAccountNumber) == null) {
                         System.out.println("ACCOUNT DOES NOT EXIST!");
                     } else {
-                        // Nếu số tài khoản tồn tại thì nhập số tiền muốn gửi
+                        // Nếu số tài khoản tồn tại thì in thông tin tài khoản và yêu cầu nhập số tiền muốn gửi
                         while (true) {
+                            Customer depositCustomer = service.findCustomerbyAccountNumber(depositAccountNumber);
+                            System.out.println(depositCustomer.getAccount().toString());
                             System.out.print("Enter the amount: ");
                             double amount = sc.nextDouble();
                             sc.nextLine();
+
                             //Nếu số tiền bé hơn hoặc bằng 0 thì thông báo không hợp lệ và bắt nhập lại
                             if (amount <= 0) {
                                 System.out.println("THE AMOUNT MUST BE GREATER THAN 0!");
                             } else {
                                 //Nếu số tiền hợp lệ thì gọi method gửi tiền
-                                Customer depositCustomer = service.findCustomerbyAccountNumber(depositAccountNumber);
                                 depositCustomer.getAccount().deposit(amount);
                                 break;
                             }
@@ -122,12 +127,13 @@ public class Main {
                     if (service.findCustomerbyAccountNumber(withdrawAccountNumber) == null) {
                         System.out.println("ACCOUNT DOES NOT EXIST!");
                     } else {
-                        // Nếu số tài khoản tồn tại thì nhập số tiền muốn rút
+                        // Nếu số tài khoản tồn tại thì in thông tin và yêu cầu nhập số tiền muốn rút
                         while (true) {
+                            Customer withdrawCustomer = service.findCustomerbyAccountNumber(withdrawAccountNumber);
+                            System.out.println(withdrawCustomer.getAccount().toString());
                             System.out.print("Enter the amount: ");
                             double amount = sc.nextDouble();
                             sc.nextLine();
-                            Customer withdrawCustomer = service.findCustomerbyAccountNumber(withdrawAccountNumber);
                             // Nếu số tiền lớn hơn 0 và nhỏ hơn hoặc bằng số dư hiện có thì cho rút tiền
                             if (amount > 0 && amount <= withdrawCustomer.getAccount().getBalance()) {
                                 withdrawCustomer.getAccount().withdraw(amount);
@@ -184,8 +190,8 @@ public class Main {
                             }
                         }
                     }
-                        break;
-            case 5: // Check balance
+                    break;
+                case 5: // Check balance
                     System.out.println("==== BANK ACCOUNT MANAGEMENT SYSTEM [CHECK BALANCE] ====");
                     // Nhập số tài khoản người dùng muốn kiểm tra
                     System.out.print("Enter the account number: ");
@@ -200,7 +206,7 @@ public class Main {
                         System.out.println(checkCustomer.getAccount().toString());
                     }
                     break;
-                case 6: //List customers 
+                case 6: //List customers
                     System.out.println("==== BANK ACCOUNT MANAGEMENT SYSTEM [LIST CUSTOMERS] ====");
                     service.listCustomers();
                     break;
@@ -261,9 +267,7 @@ public class Main {
             }
 
         } while (choice != 9);
-            sc.close();
-        }
 
-
-    
     }
+
+}

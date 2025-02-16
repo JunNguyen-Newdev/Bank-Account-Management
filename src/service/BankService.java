@@ -33,7 +33,7 @@ public class BankService {
     // In danh sách khách hàng
     public void listCustomers() {
         int order = 0;
-        System.out.format("%-5s |%-20s |%-13s |%-12s |%-14s |%-10s\n",
+        System.out.format("%-5s |%-20s |%-13s |%-12s |%-14s |%-10.3f\n",
                 "Order",
                 "Name",
                 "Date of birth",
@@ -41,7 +41,7 @@ public class BankService {
                 "Account number",
                 "Balance");
         for (Customer customer : listOfCustomers) {
-            System.out.format("%-5s |%-20s |%-13s |%-12s |%-14s |%-10s\n",
+            System.out.format("%-5s |%-20s |%-13s |%-12s |%-14s |%-10.3f\n",
                     ++order,
                     customer.getName(),
                     customer.getDob(),
