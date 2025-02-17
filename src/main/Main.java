@@ -111,7 +111,7 @@ public class Main {
                                 System.out.println("THE AMOUNT MUST BE GREATER THAN 0!");
                             } else {
                                 //Nếu số tiền hợp lệ thì gọi method gửi tiền
-                                depositCustomer.getAccount().deposit(amount);
+                                service.deposit(depositCustomer, amount);
                                 break;
                             }
                         }
@@ -135,7 +135,7 @@ public class Main {
                             sc.nextLine();
                             // Nếu số tiền lớn hơn 0 và nhỏ hơn hoặc bằng số dư hiện có thì cho rút tiền
                             if (amount > 0 && amount <= withdrawCustomer.getAccount().getBalance()) {
-                                withdrawCustomer.getAccount().withdraw(amount);
+                                service.withdraw(withdrawCustomer, amount);
                                 break;
                             } else {
                                 // Nếu số tiền lớn hơn số dư hoặc bé hơn không thì không có rút và bắt nhập lại

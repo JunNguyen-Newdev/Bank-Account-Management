@@ -79,7 +79,7 @@ public class BankService {
     private void updateFile() {
         try (PrintWriter pw = new PrintWriter(new FileWriter("ListOfCustomers.txt", false))) {  // false: ghi đè
             for (Customer customer : listOfCustomers) {
-                pw.println(customer.toString() + "\n");
+                pw.println(customer.toString());
                 pw.flush();
                 if (customer == null) {
                     pw.close();
@@ -143,7 +143,20 @@ public class BankService {
         updateFile(); // Cập nhập danh sach những khách hàng còn lại vào file
         System.out.println("ACCOUNT DELETED SUCCESSFULLY!");
     }
-
+    
+    // Phương thức gửi tiền
+    public void deposit(Customer depositeCustomer, double amount){
+        depositeCustomer.getAccount().deposit(amount);
+        updateFile();
+    }
+    
+    // Phương thức rút tiền
+    public void withdraw(Customer withdrawCustomer, double amount) {
+        withdrawCustomer.getAccount().withdraw(amount);
+        updateFile();
+    }
+    
+    // Phương thức chuyển tiền
     public void transfer(double amount, Customer senderCustomer, Customer receiverCustomer) {
         senderCustomer.getAccount().setBalance(senderCustomer.getAccount().getBalance() - amount);
         receiverCustomer.getAccount().setBalance(receiverCustomer.getAccount().getBalance() + amount);
