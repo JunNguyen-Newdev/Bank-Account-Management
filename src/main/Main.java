@@ -14,7 +14,7 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        
+
         Scanner sc = new Scanner(System.in);
         int choice;
 
@@ -230,7 +230,7 @@ public class Main {
                         String newPhoneNumber = sc.nextLine();
 
                         service.updateCustomerPhoneNumber(updateCustomer, newPhoneNumber);
-                        
+
                         System.out.println("UPDATED SUCCESSFULLY!");
                     }
                     break;

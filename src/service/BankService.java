@@ -23,7 +23,7 @@ public class BankService {
     public BankService() {
         loadCustomersFromFile();
     }
-    
+
     // Phương thức lưu dữ liệu khách hàng vào file
     private void saveCustomerToFile(Customer customer) {
         try (PrintWriter pw = new PrintWriter(new FileWriter("ListOfCustomers.txt", true))) {   // true: cho phép append
@@ -34,7 +34,7 @@ public class BankService {
             System.out.println("Error saving customer to file: " + e.getMessage());
         }
     }
-    
+
     // Phương thức đọc dữ liệu khách hàng từ file
     private void loadCustomersFromFile() {
         File file = new File("ListOfCustomers.txt");
@@ -74,7 +74,7 @@ public class BankService {
             System.out.println("Error handling file: " + e.getMessage());
         }
     }
-    
+
     // Phương thức cập nhật file dùng cho chức năng: update, transfer, deposit, withdraw, delete
     private void updateFile() {
         try (PrintWriter pw = new PrintWriter(new FileWriter("ListOfCustomers.txt", false))) {  // false: ghi đè
@@ -110,10 +110,10 @@ public class BankService {
             System.out.println("No customers available.");
             return;
         }
-        
+
         // Sắp xếp tên theo thứ tự
         listOfCustomers.sort(Comparator.comparing(Customer::getName));
-        
+
         int order = 0;
         System.out.format("%-5s |%-20s |%-13s |%-12s |%-14s |%-10s\n",
                 "Order",
@@ -140,19 +140,19 @@ public class BankService {
         updateFile(); // Cập nhập danh sach những khách hàng còn lại vào file
         System.out.println("ACCOUNT DELETED SUCCESSFULLY!");
     }
-    
+
     // Phương thức gửi tiền
-    public void deposit(Customer depositeCustomer, double amount){
+    public void deposit(Customer depositeCustomer, double amount) {
         depositeCustomer.getAccount().deposit(amount);
         updateFile();
     }
-    
+
     // Phương thức rút tiền
     public void withdraw(Customer withdrawCustomer, double amount) {
         withdrawCustomer.getAccount().withdraw(amount);
         updateFile();
     }
-    
+
     // Phương thức chuyển tiền
     public void transfer(double amount, Customer senderCustomer, Customer receiverCustomer) {
         senderCustomer.getAccount().setBalance(senderCustomer.getAccount().getBalance() - amount);
@@ -160,7 +160,7 @@ public class BankService {
         updateFile();
         System.out.println("TRANSFERED SUCCESSFULLY!");
     }
-    
+
     // Phương thức cập nhật số điện thoại
     public void updateCustomerPhoneNumber(Customer updatePhoneCustomer, String newPhoneNumber) {
         updatePhoneCustomer.setPhone(newPhoneNumber);
