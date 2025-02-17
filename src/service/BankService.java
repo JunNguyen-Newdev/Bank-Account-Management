@@ -81,9 +81,6 @@ public class BankService {
             for (Customer customer : listOfCustomers) {
                 pw.println(customer.toString());
                 pw.flush();
-                if (customer == null) {
-                    pw.close();
-                }
             }
         } catch (IOException e) {
             System.out.println("Error updating file: " + e.getMessage());

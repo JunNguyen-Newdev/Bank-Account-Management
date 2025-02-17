@@ -268,7 +268,7 @@ public class Main {
             }
 
         } while (choice != 9);
-
+        sc.close();
     }
 
 }

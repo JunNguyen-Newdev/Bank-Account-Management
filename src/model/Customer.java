@@ -6,7 +6,6 @@ package model;
  */
 public class Customer {
 
-    private String id;  //  Id khach hang
     private String name; // Ten khach hang
     private String phone; // So dien thoai
     private String dob; // Ngay sinh
