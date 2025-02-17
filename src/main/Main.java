@@ -229,7 +229,7 @@ public class Main {
                         System.out.print("Enter your new phone number: ");
                         String newPhoneNumber = sc.nextLine();
 
-                        updateCustomer.setPhone(newPhoneNumber);
+                        service.updateCustomerPhoneNumber(updateCustomer, newPhoneNumber);
                         
                         System.out.println("UPDATED SUCCESSFULLY!");
                     }

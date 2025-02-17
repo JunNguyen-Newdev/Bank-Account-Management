@@ -163,4 +163,10 @@ public class BankService {
         updateFile();
         System.out.println("TRANSFERED SUCCESSFULLY!");
     }
+    
+    // Phương thức cập nhật số điện thoại
+    public void updateCustomerPhoneNumber(Customer updatePhoneCustomer, String newPhoneNumber) {
+        updatePhoneCustomer.setPhone(newPhoneNumber);
+        updateFile();
+    }
 }
